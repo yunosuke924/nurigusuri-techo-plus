@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "nurigusuri-techo-plus",
-    "slug": "nurigusuri-techo-plus",
+    "name": "supabase-memo-app",
+    "slug": "supabase-memo-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
