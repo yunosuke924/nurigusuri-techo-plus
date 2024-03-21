@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
-import Icon from './Icon'
+import Icon from '@/components/Icon'
 import { Link } from 'expo-router'
 import { type Memo } from 'types/memo'
 import { supabase } from '@/supabase'
@@ -10,10 +10,7 @@ interface Props {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const handleOnPress = async (id: string) => {
-  const { error } = await supabase
-    .from('memos')
-    .delete()
-    .eq('id', id)
+  const { error } = await supabase.from('memos').delete().eq('id', id)
 
   if (error != null) {
     Alert.alert('削除に失敗しました')
