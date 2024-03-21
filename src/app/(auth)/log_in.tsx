@@ -65,7 +65,7 @@ const Login = (): JSX.Element => {
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>アカウントをお持ちでない方は</Text>
-          <Link href='/auth/sign_up' asChild replace>
+          <Link href='/sign_up' asChild replace>
             <TouchableOpacity>
               <Text style={styles.footerTextLink}>こちら</Text>
             </TouchableOpacity>

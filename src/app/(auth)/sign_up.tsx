@@ -63,7 +63,7 @@ const Login = (): JSX.Element => {
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>アカウントをお持ちの方は</Text>
-          <Link href='/auth/log_in' asChild replace>
+          <Link href='/log_in' asChild replace>
             <TouchableOpacity>
               <Text style={styles.footerTextLink}>こちら</Text>
             </TouchableOpacity>
