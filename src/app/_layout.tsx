@@ -4,7 +4,7 @@ const Layout = (): JSX.Element => (
   <Stack
     screenOptions={{
       headerStyle: {
-        backgroundColor: '#467fd3'
+        backgroundColor: '#9BB068'
       },
       headerTintColor: '#fff',
       headerTitle: '塗り薬手帳+',
