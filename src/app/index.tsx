@@ -11,7 +11,16 @@ const Index = (): JSX.Element => {
       }
     })
   }, [])
-  return <Redirect href='welcome' />
+  return (
+    <Redirect
+      href={{
+        pathname: 'welcome/[pageNum]',
+        params: {
+          pageNum: '1'
+        }
+      }}
+    />
+  )
   // return <Redirect href='auth/log_in' />
 }
 
