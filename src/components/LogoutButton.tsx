@@ -3,11 +3,14 @@ import { supabase } from '@/supabase'
 import { router } from 'expo-router'
 
 const handleOnPress = (): void => {
-  supabase.auth.signOut().then((): void => {
-    router.replace('/auth/log_in')
-  }).catch((): void => {
-    Alert.alert('ログアウトに失敗しました')
-  })
+  supabase.auth
+    .signOut()
+    .then((): void => {
+      router.replace('/log_in')
+    })
+    .catch((): void => {
+      Alert.alert('ログアウトに失敗しました')
+    })
 }
 
 const LogoutButton = (): JSX.Element => {
