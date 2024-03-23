@@ -29,7 +29,7 @@ export const TopImage = ({ pageNumber }: Props): JSX.Element => {
     return (
       <Image
         style={styles.image}
-        source={require('assets/welcome-2.png')}
+        source={require('assets/welcome-3.png')}
         contentFit='contain'
       />
     )
@@ -38,7 +38,7 @@ export const TopImage = ({ pageNumber }: Props): JSX.Element => {
     return (
       <Image
         style={styles.image}
-        source={require('assets/welcome-2.png')}
+        source={require('assets/welcome-4.png')}
         contentFit='contain'
       />
     )
@@ -47,7 +47,7 @@ export const TopImage = ({ pageNumber }: Props): JSX.Element => {
     return (
       <Image
         style={styles.image}
-        source={require('assets/welcome-2.png')}
+        source={require('assets/welcome-5.png')}
         contentFit='contain'
       />
     )
