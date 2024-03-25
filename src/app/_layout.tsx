@@ -3,16 +3,12 @@ import { Stack } from 'expo-router'
 const Layout = (): JSX.Element => (
   <Stack
     screenOptions={{
+      headerShown: false,
+      headerTransparent: true,
       headerStyle: {
-        backgroundColor: '#9BB068'
+        backgroundColor: 'transparent'
       },
-      headerTintColor: '#fff',
-      headerTitle: '塗り薬手帳+',
-      headerBackTitle: '戻る',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-        fontSize: 22
-      }
+      animation: 'slide_from_right'
     }}
   />
 )

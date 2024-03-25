@@ -7,6 +7,11 @@ import Icon from '@/components/Icon'
 import { COLOR } from '@/styles/colors'
 import TopImage from '@/components/welcome/TopImage'
 import ExplanationText from '@/components/welcome/ExplanationText'
+import * as Progress from 'react-native-progress'
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets
+} from 'react-native-safe-area-context'
 
 const BG_COLOR_MAP: Record<number, string> = {
   1: COLOR.green20,
@@ -23,6 +28,10 @@ const List = (): JSX.Element => {
   const pageNumber = typeof pageNum === 'string' ? parseInt(pageNum, 10) : 1
 
   const handleOnPress = (): void => {
+    if (pageNumber === 5) {
+      router.push('welcome/complete')
+      return
+    }
     router.push(`welcome/${pageNumber + 1}`)
   }
 
@@ -33,18 +42,37 @@ const List = (): JSX.Element => {
   }, [])
 
   const backgroundColor = BG_COLOR_MAP[pageNumber]
+  const insets = useSafeAreaInsets()
   return (
-    <View style={[styles.constainer, { backgroundColor }]}>
-      <Text style={styles.title}>{`塗り薬手帳+の機能 その${pageNumber}`}</Text>
-      <TopImage pageNumber={pageNumber} />
-      <ExplanationText pageNumber={pageNumber} />
-      <View style={styles.bottomBackGround} />
-      {pageNumber !== 5 && (
+    <SafeAreaProvider>
+      <View
+        style={[
+          styles.constainer,
+          { backgroundColor },
+          { paddingTop: insets.top }
+        ]}
+      >
+        <Text
+          style={styles.title}
+        >{`塗り薬手帳+の機能 その${pageNumber}`}</Text>
+        <TopImage pageNumber={pageNumber} />
+        <View style={styles.progressBarContainer}>
+          <Progress.Bar
+            progress={pageNumber / 5}
+            width={180}
+            height={8}
+            color={COLOR.brown60}
+            unfilledColor={COLOR.brown20}
+            borderWidth={0}
+          />
+        </View>
+        <ExplanationText pageNumber={pageNumber} />
+        <View style={styles.bottomBackGround} />
         <NextButton onPress={handleOnPress}>
           <Icon name='arrow-right' size={24} color='#fff' />
         </NextButton>
-      )}
-    </View>
+      </View>
+    </SafeAreaProvider>
   )
 }
 
@@ -66,6 +94,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     width: 300
   },
+  progressBarContainer: { marginTop: 50, zIndex: 10000 },
   bottomBackGround: {
     position: 'absolute',
     bottom: -200,
@@ -73,13 +102,6 @@ const styles = StyleSheet.create({
     height: 600,
     borderRadius: 300,
     backgroundColor: COLOR.white
-  },
-  image: {
-    position: 'absolute',
-    top: -160,
-    flex: 1,
-    width: '100%',
-    height: '100%'
   }
 })
 

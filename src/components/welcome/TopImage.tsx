@@ -11,6 +11,7 @@ export const TopImage = ({ pageNumber }: Props): JSX.Element => {
         style={styles.image}
         source={require('assets/welcome-1.png')}
         contentFit='contain'
+        contentPosition={'top'}
       />
     )
   }
@@ -28,7 +29,7 @@ export const TopImage = ({ pageNumber }: Props): JSX.Element => {
     return (
       <Image
         style={styles.image}
-        source={require('assets/welcome-2.png')}
+        source={require('assets/welcome-3.png')}
         contentFit='contain'
       />
     )
@@ -37,7 +38,7 @@ export const TopImage = ({ pageNumber }: Props): JSX.Element => {
     return (
       <Image
         style={styles.image}
-        source={require('assets/welcome-2.png')}
+        source={require('assets/welcome-4.png')}
         contentFit='contain'
       />
     )
@@ -46,7 +47,7 @@ export const TopImage = ({ pageNumber }: Props): JSX.Element => {
     return (
       <Image
         style={styles.image}
-        source={require('assets/welcome-2.png')}
+        source={require('assets/welcome-5.png')}
         contentFit='contain'
       />
     )
@@ -57,11 +58,9 @@ export const TopImage = ({ pageNumber }: Props): JSX.Element => {
 
 const styles = StyleSheet.create({
   image: {
-    position: 'absolute',
-    top: -160,
     flex: 1,
     width: '100%',
-    height: '100%'
+    maxHeight: 400
   }
 })
 

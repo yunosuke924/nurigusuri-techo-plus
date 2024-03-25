@@ -63,8 +63,7 @@ export const TopImage = ({ pageNumber }: Props): JSX.Element => {
 
 const styles = StyleSheet.create({
   textContainer: {
-    position: 'absolute',
-    top: 550,
+    marginTop: 40,
     zIndex: 100
   },
   text: {
