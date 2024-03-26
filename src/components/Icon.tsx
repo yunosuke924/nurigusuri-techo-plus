@@ -12,9 +12,7 @@ interface Props {
 }
 
 // 第三引数はttfファイルデータ
-const CustomIcon = createIconSetFromIcoMoon(
-  fontSelection, 'IcoMoon', fontData
-)
+const CustomIcon = createIconSetFromIcoMoon(fontSelection, 'IcoMoon', fontData)
 
 const Icon = ({ name, size, color }: Props): JSX.Element | null => {
   const [fontLoaded] = useFonts({
@@ -23,8 +21,6 @@ const Icon = ({ name, size, color }: Props): JSX.Element | null => {
   if (!fontLoaded) {
     return null
   }
-  return (
-    <CustomIcon name={name} size={size} color={color} />
-  )
+  return <CustomIcon name={name} size={size} color={color} />
 }
 export default Icon

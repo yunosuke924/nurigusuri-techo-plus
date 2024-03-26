@@ -1,4 +1,4 @@
-import Button from '@/components/Button'
+import Button from '@/components/auth/Button'
 import { Link, router } from 'expo-router'
 import { useState } from 'react'
 import {
@@ -10,6 +10,7 @@ import {
   Alert
 } from 'react-native'
 import { supabase } from '@/supabase'
+import { COLOR } from '@/styles/colors'
 
 const handleOnPress = (email: string, password: string): void => {
   supabase.auth
@@ -30,13 +31,20 @@ const handleOnPress = (email: string, password: string): void => {
 const Login = (): JSX.Element => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isMailFocusInput, setIsMailFocusInput] = useState(false)
+  const [isPasswordFocusInput, setIsPasswordFocusInput] = useState(false)
 
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
-        <Text style={styles.title}>ログイン</Text>
+        <View style={styles.titlContainer}>
+          <Text style={styles.title}>ログイン</Text>
+        </View>
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            isMailFocusInput && { borderColor: COLOR.green30, borderWidth: 3 }
+          ]}
           value={email}
           onChangeText={(text) => {
             setEmail(text)
@@ -45,9 +53,21 @@ const Login = (): JSX.Element => {
           keyboardType='email-address'
           placeholder='メールアドレス'
           textContentType='emailAddress'
+          onFocus={() => {
+            setIsMailFocusInput(true)
+          }}
+          onBlur={() => {
+            setIsMailFocusInput(false)
+          }}
         />
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            isPasswordFocusInput && {
+              borderColor: COLOR.green30,
+              borderWidth: 3
+            }
+          ]}
           value={password}
           onChangeText={(text) => {
             setPassword(text)
@@ -56,6 +76,12 @@ const Login = (): JSX.Element => {
           secureTextEntry
           placeholder='パスワード'
           textContentType='password'
+          onFocus={() => {
+            setIsPasswordFocusInput(true)
+          }}
+          onBlur={() => {
+            setIsPasswordFocusInput(false)
+          }}
         />
         <Button
           label='ログイン'
@@ -79,11 +105,16 @@ const Login = (): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: COLOR.brown10
   },
   inner: {
     paddingHorizontal: 27,
     paddingVertical: 32
+  },
+  titlContainer: {
+    marginTop: 40,
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   title: {
     fontSize: 24,
@@ -91,14 +122,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 24
   },
+  inputContainer: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: '#000',
+    paddingBottom: 10
+  },
   input: {
     fontSize: 16,
-    height: 48,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    backgroundColor: '#fff',
+    height: 56,
+    // borderColor: COLOR.green30,
+    // borderWidth: 3,
+    borderRadius: 32,
+    backgroundColor: '#ffffff',
     paddingHorizontal: 8,
-    marginBottom: 16
+    marginBottom: 16,
+    elevation: 2
   },
   footer: {
     flexDirection: 'row',
@@ -106,13 +145,15 @@ const styles = StyleSheet.create({
     marginTop: 24
   },
   footerText: {
+    color: COLOR.gray60,
     fontSize: 14,
-    lineHeight: 24
+    lineHeight: 24,
+    fontWeight: 'bold'
   },
   footerTextLink: {
     fontSize: 14,
     lineHeight: 24,
-    color: '#467fd3'
+    color: COLOR.orange40
   }
 })
 
