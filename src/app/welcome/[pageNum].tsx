@@ -3,7 +3,6 @@ import { useNavigation, useLocalSearchParams, router } from 'expo-router'
 import { useEffect } from 'react'
 import LogoutButton from '@/components/LogoutButton'
 import NextButton from '@/components/welcome/NextButton'
-import Icon from '@/components/Icon'
 import { COLOR } from '@/styles/colors'
 import TopImage from '@/components/welcome/TopImage'
 import ExplanationText from '@/components/welcome/ExplanationText'
@@ -24,7 +23,6 @@ const BG_COLOR_MAP: Record<number, string> = {
 const List = (): JSX.Element => {
   const navigation = useNavigation()
   const { pageNum } = useLocalSearchParams()
-  // pageNumは文字列なので数値に変換
   const pageNumber = typeof pageNum === 'string' ? parseInt(pageNum, 10) : 1
 
   const handleOnPress = (): void => {
@@ -68,9 +66,7 @@ const List = (): JSX.Element => {
         </View>
         <ExplanationText pageNumber={pageNumber} />
         <View style={styles.bottomBackGround} />
-        <NextButton onPress={handleOnPress}>
-          <Icon name='arrow-right' size={24} color='#fff' />
-        </NextButton>
+        <NextButton onPress={handleOnPress} />
       </View>
     </SafeAreaProvider>
   )

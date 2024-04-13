@@ -15,7 +15,7 @@ const List = (): JSX.Element => {
   const insets = useSafeAreaInsets()
 
   const handleOnStart = (): void => {
-    router.push('home')
+    router.push('log_in')
   }
 
   useEffect(() => {

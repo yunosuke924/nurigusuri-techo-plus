@@ -5,15 +5,17 @@ import {
   type ViewStyle
 } from 'react-native'
 import { COLOR } from '@/styles/colors'
+import Icon from '@/components/Icon'
 interface Props {
-  children: JSX.Element
   style?: ViewStyle
   onPress?: () => void
 }
-const NextButton = ({ children, style, onPress }: Props): JSX.Element => {
+const NextButton = ({ style, onPress }: Props): JSX.Element => {
   return (
     <TouchableOpacity style={[Styles.circleButton, style]} onPress={onPress}>
-      <Text style={Styles.circleButtonLabel}>{children}</Text>
+      <Text style={Styles.circleButtonLabel}>
+        <Icon name='arrow-right' size={24} color='#fff' />
+      </Text>
     </TouchableOpacity>
   )
 }
