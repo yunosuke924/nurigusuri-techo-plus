@@ -1,41 +1,75 @@
-import { View, StyleSheet, Text, ScrollView, Dimensions } from 'react-native'
-import { useNavigation } from 'expo-router'
-import { useEffect } from 'react'
-import LogoutButton from '@/components/LogoutButton'
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  Dimensions,
+  Alert
+} from 'react-native'
+import { router } from 'expo-router'
 import { COLOR } from '@/styles/colors'
 import { Icon } from 'react-native-elements'
 import Carousel from 'react-native-reanimated-carousel'
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets
+} from 'react-native-safe-area-context'
+import { supabase } from '@/supabase'
 
 const width = Dimensions.get('window').width
 
-const List = (): JSX.Element => {
-  const navigation = useNavigation()
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <LogoutButton />
+const handleOnPress = (): void => {
+  supabase.auth
+    .signOut()
+    .then((): void => {
+      router.replace('/log_in')
     })
-  }, [])
+    .catch((): void => {
+      Alert.alert('ログアウトに失敗しました')
+    })
+}
+
+const List = (): JSX.Element => {
+  const insets = useSafeAreaInsets()
   return (
-    <>
-      <ScrollView style={styles.container}>
-        <View style={styles.topNavigation}>
-          <View style={{ flexDirection: 'row' }}>
+    <SafeAreaProvider>
+      <ScrollView style={[styles.container]}>
+        <View style={[styles.topNavigation, { paddingTop: insets.top }]}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginBottom: 8
+            }}
+          >
             <Text
               style={{ fontSize: 18, color: COLOR.white, fontWeight: 'bold' }}
             >
               2024年3月26日
             </Text>
-            <Icon name='settings' color={COLOR.white} />
-            <Icon name='settings' color={COLOR.white} />
+            <View style={{ flexDirection: 'row' }}>
+              <Icon
+                name='settings'
+                color={COLOR.white}
+                onPress={() => {
+                  handleOnPress()
+                }}
+              />
+            </View>
           </View>
           <Text
-            style={{ fontSize: 24, color: COLOR.white, fontWeight: 'bold' }}
+            style={{
+              fontSize: 24,
+              color: COLOR.white,
+              fontWeight: 'bold',
+              marginBottom: 8
+            }}
           >
             峯岸佑乃介
           </Text>
 
           <View style={{ flexDirection: 'row' }}>
-            <Icon name='settings' color={COLOR.white} />
+            <Icon name='star' color={COLOR.yellow40} />
             <Text
               style={{ fontSize: 18, color: COLOR.white, fontWeight: 'bold' }}
             >
@@ -68,11 +102,11 @@ const List = (): JSX.Element => {
           <View style={{ flex: 1 }}>
             <Carousel
               loop={false}
-              width={width / 2}
+              width={width / 2.4}
               style={{ width }}
               height={width / 2}
               autoPlay={false}
-              data={[...new Array(6).keys()]}
+              data={[...new Array(4).keys()]}
               scrollAnimationDuration={1000}
               onSnapToItem={(index) => {
                 console.log('current index:', index)
@@ -88,7 +122,19 @@ const List = (): JSX.Element => {
                           { backgroundColor: COLOR.green40 }
                         ]}
                       >
-                        <Text>{index + 1}</Text>
+                        <View
+                          style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'center'
+                          }}
+                        >
+                          <Text
+                            style={{ color: COLOR.white, fontWeight: 'bold' }}
+                          >
+                            塗りスコア
+                          </Text>
+                        </View>
                       </View>
                     )
                   case 1:
@@ -99,7 +145,42 @@ const List = (): JSX.Element => {
                           { backgroundColor: COLOR.orange40 }
                         ]}
                       >
-                        <Text>{index + 1}</Text>
+                        <View
+                          style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'center'
+                          }}
+                        >
+                          <Text
+                            style={{ color: COLOR.white, fontWeight: 'bold' }}
+                          >
+                            肌の状態
+                          </Text>
+                        </View>
+                      </View>
+                    )
+                  case 2:
+                    return (
+                      <View
+                        style={[
+                          styles.summaryCard,
+                          { backgroundColor: COLOR.purple40 }
+                        ]}
+                      >
+                        <View
+                          style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'center'
+                          }}
+                        >
+                          <Text
+                            style={{ color: COLOR.white, fontWeight: 'bold' }}
+                          >
+                            連続記録
+                          </Text>
+                        </View>
                       </View>
                     )
                 }
@@ -110,7 +191,17 @@ const List = (): JSX.Element => {
                       { backgroundColor: COLOR.brown40 }
                     ]}
                   >
-                    <Text>{index + 1}</Text>
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      <Text style={{ color: COLOR.white, fontWeight: 'bold' }}>
+                        その他
+                      </Text>
+                    </View>
                   </View>
                 )
               }}
@@ -171,7 +262,7 @@ const List = (): JSX.Element => {
         </View>
       </ScrollView>
       <View style={styles.bottomNaviagation}></View>
-    </>
+    </SafeAreaProvider>
   )
 }
 
@@ -184,7 +275,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.brown80,
     height: 200,
     width: '100%',
-    borderRadius: 40
+    borderRadius: 40,
+    paddingLeft: 18,
+    paddingRight: 18
   },
   padding200: {
     height: 200
@@ -217,7 +310,8 @@ const styles = StyleSheet.create({
     height: 196,
     width: 163,
     borderRadius: 40,
-    margin: 8
+    margin: 8,
+    padding: 16
   }
 })
 
